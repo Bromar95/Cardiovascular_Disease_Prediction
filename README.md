@@ -1,15 +1,17 @@
-# ❤️ Cardiovascular Disease Prediction with LightGBM (Python Project)
+# ❤️ Cardiovascular Disease Prediction with LightGBM and Streamlit Deployment (Python Project)
+
+🚀 **Live App:** [cvd-risk-omar.streamlit.app](https://cvd-risk-omar.streamlit.app)
 
 ## 📌 Project Overview
 
 This project builds a machine learning model in Python to predict cardiovascular disease (CVD) from routine patient information. It uses 70,000 patient records with age, sex, height, weight, blood pressure, cholesterol, glucose, smoking, alcohol use, physical activity, and CVD status.
 
-The model was trained with LightGBM, a gradient boosting method. The project then went beyond accuracy and tested the model the way a clinical screening tool would be judged. I audited the data for clinically impossible readings, compared the model with a simpler baseline, tuned the decision threshold for screening, checked which features truly drive predictions, and measured whether the predicted risks match real outcomes. Along the way, I found and corrected a reversed sex label in the tutorial's data cleaning.
+The model was trained with LightGBM, a gradient boosting method. The project then went beyond accuracy and tested the model the way a clinical screening tool would be judged. I audited the data for clinically impossible readings, compared the model with a simpler baseline, tuned the decision threshold for screening, checked which features truly drive predictions, and measured whether the predicted risks match real outcomes. Along the way, I found and corrected reversed sex labels in the initial data cleaning.
 
 ## 🎯 Key Features
 
 ✅ Data Cleaning: Converted age from days to years, fixed negative blood pressure values, and relabeled coded columns.<br>
-✅ Sex Coding Correction: Found that the tutorial reversed the sex labels and corrected them using height, weight, and smoking patterns.<br>
+✅ Sex Coding Correction: Found that the sex labels were reversed and corrected them using height, weight, and smoking patterns.<br>
 ✅ Exploratory Analysis: Compared CVD rates across sex, cholesterol, glucose, smoking, alcohol, and activity level.<br>
 ✅ Clinical Plausibility Audit: Flagged physiologically impossible blood pressure, height, weight, and BMI values.<br>
 ✅ LightGBM Model: Trained a gradient boosting classifier on a stratified 70/30 train/test split.<br>
@@ -44,6 +46,9 @@ The model was trained with LightGBM, a gradient boosting method. The project the
 | `calibration_curve.png` | Predicted CVD risk compared with the actual CVD rate |
 | `cvd_by_category.png` | CVD status across six patient characteristics |
 | `correlation_heatmap.png` | Correlation matrix of the model features |
+| `cvd.py` | Streamlit app that serves the model as an interactive risk calculator |
+| `LGBM_model.pkl` | Trained LightGBM model saved with pickle |
+| `requirements.txt` | Package versions used to deploy the app |
 
 ## 🧹 Data Preparation
 
@@ -51,7 +56,7 @@ The model was trained with LightGBM, a gradient boosting method. The project the
 - Confirmed the dataset has no missing values.
 - Converted `Age` from days to years.
 - Removed the minus sign from 8 negative blood pressure readings, then capped systolic at 60 to 200 mmHg and diastolic at 50 to 180 mmHg.
-- **Corrected the sex coding.** The tutorial mapped code 1 to male, but code 1 patients averaged 161.4 cm tall with a 1.8% smoking rate, while code 2 patients averaged 169.9 cm with a 21.9% smoking rate. Code 2 is men, so the labels were reversed. After the fix, the dataset has 45,530 women and 24,470 men.
+- **Corrected the sex coding.** The initial cleaning mapped code 1 to male, but code 1 patients averaged 161.4 cm tall with a 1.8% smoking rate, while code 2 patients averaged 169.9 cm with a 21.9% smoking rate. Code 2 is men, so the labels were reversed. After the fix, the dataset has 45,530 women and 24,470 men.
 - Encoded categorical columns with `pd.get_dummies(drop_first=True)`.
 - Confirmed the target is balanced: 35,021 patients without CVD and 34,979 with CVD.
 - Split the data 70/30 with `stratify=y` and `random_state=23`.
@@ -142,7 +147,7 @@ This project provides insights into:
 - The model had a **Brier score of 0.180**, and its predicted risks closely matched real outcomes. For example, patients predicted at about 25% risk had a 25.6% actual CVD rate.
 - Only the highest-risk group was slightly overconfident (about 91% predicted vs. 85% actual).
 
-*Note: The blood pressure capping in the tutorial's cleaning step may turn data entry errors (such as 16,020 instead of 160) into extreme but valid-looking values. The plausibility audit was run on the raw values to catch these. The dataset does not include diagnosis dates or follow-up, so the model identifies patients who have CVD rather than predicting future risk. This project is for learning purposes and is not a clinical tool.*
+*Note: The blood pressure capping in the cleaning step may turn data entry errors (such as 16,020 instead of 160) into extreme but valid-looking values. The plausibility audit was run on the raw values to catch these. The dataset does not include diagnosis dates or follow-up, so the model identifies patients who have CVD rather than predicting future risk. This project is for learning purposes and is not a clinical tool.*
 
 ## 🚀 Learning Outcomes
 
@@ -170,7 +175,7 @@ Based on the [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/su
 
 ## 🙌 Acknowledgment
 
-This project taught me that a working model is only the starting point in healthcare. Asking clinical questions, such as whether the readings are possible, which patients are missed, and whether the risk scores can be trusted, turned a tutorial model into something closer to how a real screening tool is judged.
+This project taught me that a working model is only the starting point in healthcare. Asking clinical questions, such as whether the readings are possible, which patients are missed, and whether the risk scores can be trusted, moved this model closer to how a real screening tool is judged.
 
 ## 🔗 Related Link
 
