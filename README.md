@@ -1,4 +1,4 @@
-# ❤️ Cardiovascular Disease Prediction with LightGBM and Streamlit Deployment (Python Project)
+# ❤️ Cardiovascular Disease Prediction with LightGBM and Streamlit Deployment
 
 🚀 **Live App:** [cvd-risk-omar.streamlit.app](https://cvd-risk-omar.streamlit.app)
 
